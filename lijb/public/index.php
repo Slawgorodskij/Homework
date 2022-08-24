@@ -4,7 +4,12 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
-
+//function taskOne()
+//{
+//    echo 1;
+//    taskOne();
+//}
+//taskOne();
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance
