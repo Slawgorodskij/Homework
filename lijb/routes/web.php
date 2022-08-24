@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\HomeWorkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-//Route::get('/home_work_task_1', [HomeWorkController::class, 'taskOne']);
-Route::get('/home_work_task_2', [HomeWorkController::class, 'taskTwo']);
-Route::get('/home_work_task_3', [HomeWorkController::class, 'taskThree']);
