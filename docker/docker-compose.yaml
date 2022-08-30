@@ -75,6 +75,15 @@ services:
             networks:
                 - lijb-network
 
+        db-maria:
+            container_name: db-maria
+            image: mariadb:latest
+            env_file:
+                - ./db/master/.env.master
+            ports:
+                - "6601:3306"
+            networks:
+                - lijb-network
 volumes:
     nginx_log:
     lijb_log:
