@@ -24,7 +24,7 @@ services:
             depends_on:
                 - redis
                 - memcached
-                - db-master
+                - maria-master
 
         nginx:
             container_name: nginx
@@ -61,29 +61,50 @@ services:
             networks:
                 - lijb-network
 
-        db-master:
-            container_name: db-master
-            image: mysql:latest
+
+        maria-master:
+            container_name: maria-master
+            image: mariadb:latest
             env_file:
                 - ./db/master/.env.master
             ports:
                 - "4406:3306"
             volumes:
                 - ./db/master/master.sql:/docker-entrypoint-initdb.d/start.sql
-                - ./db/master/mysql.master.cnf:/etc/mysql/conf.d/mysql.master.cnf
+                - ./db/master/maria.master.cnf:/etc/mysql/conf.d/maria.master.cnf
                 - ./db/master/.data/mysql:/var/lib/mysql:rw
             networks:
                 - lijb-network
 
-        db-maria:
-            container_name: db-maria
+
+        maria-slave-3:
+            container_name: maria-slave-3
             image: mariadb:latest
             env_file:
-                - ./db/master/.env.master
+                - ./db/slaves/article/.env.slave
             ports:
-                - "6601:3306"
+                - "4407:3306"
+            volumes:
+                - ./db/slaves/slave.sql:/docker-entrypoint-initdb.d/start.sql
+                - ./db/slaves/article/maria.slave.cnf:/etc/mysql/conf.d/maria.slave.cnf
+                - ./db/slaves/article/.data/mysql:/var/lib/mysql:rw
             networks:
                 - lijb-network
+
+        maria-slave-4:
+            container_name: maria-slave-4
+            image: mariadb:latest
+            env_file:
+                - ./db/slaves/categories/.env.slave
+            ports:
+                - "4408:3306"
+            volumes:
+                - ./db/slaves/slave.sql:/docker-entrypoint-initdb.d/start.sql
+                - ./db/slaves/categories/maria.slave.cnf:/etc/mysql/conf.d/maria.slave.cnf
+                - ./db/slaves/categories/.data/mysql:/var/lib/mysql:rw
+            networks:
+                - lijb-network
+
 volumes:
     nginx_log:
     lijb_log:
