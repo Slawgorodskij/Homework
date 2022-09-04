@@ -6,7 +6,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Cache Store
+    | Default CacheData Store
     |--------------------------------------------------------------------------
     |
     | This option controls the default cache connection that gets used while
@@ -19,7 +19,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Cache Stores
+    | CacheData Stores
     |--------------------------------------------------------------------------
     |
     | Here you may define all of the cache "stores" for your application as
@@ -96,7 +96,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Cache Key Prefix
+    | CacheData Key Prefix
     |--------------------------------------------------------------------------
     |
     | When utilizing the APC, database, memcached, Redis, or DynamoDB cache
