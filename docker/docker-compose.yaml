@@ -7,15 +7,50 @@ networks:
 services:
 
         lijb:
-            container_name: lijb
             build:
                 context: ./php-fpm
                 args:
                     - timezone=${TZ}
             networks:
                 - lijb-network
-            ports:
-                - "9000:9000"
+            volumes:
+                - ./../lijb:/lijb:rw,cached
+                - lijb_log:/lijb/var/log
+            env_file:
+                - .env
+            depends_on:
+                - redis
+                - memcached
+                - maria-master
+                - maria-slave-3
+                - maria-slave-4
+
+        lijb1:
+            build:
+                context: ./php-fpm
+                args:
+                    - timezone=${TZ}
+            networks:
+                - lijb-network
+            volumes:
+                - ./../lijb:/lijb:rw,cached
+                - lijb_log:/lijb/var/log
+            env_file:
+                - .env
+            depends_on:
+                - redis
+                - memcached
+                - maria-master
+                - maria-slave-3
+                - maria-slave-4
+
+        lijb2:
+            build:
+                context: ./php-fpm
+                args:
+                    - timezone=${TZ}
+            networks:
+                - lijb-network
             volumes:
                 - ./../lijb:/lijb:rw,cached
                 - lijb_log:/lijb/var/log
@@ -67,7 +102,6 @@ services:
             networks:
                 - lijb-network
 
-
         maria-master:
             container_name: maria-master
             image: mariadb:latest
@@ -81,7 +115,6 @@ services:
                 - ./db/master/.data/mysql:/var/lib/mysql:rw
             networks:
                 - lijb-network
-
 
         maria-slave-3:
             container_name: maria-slave-3
